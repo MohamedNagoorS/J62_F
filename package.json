@@ -1,0 +1,57 @@
+{
+  "name": "Asset_Master",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@sap-cloud-sdk/http-client": "^4.5.1",
+    "@sap-cloud-sdk/util": "^4.5.1",
+    "@sap/cds": "^9",
+    "@sap/low-code-event-handler": "^1.2.5",
+    "@sap/xsenv": ">=3.3.2 <3.3.3",
+    "@sap/xssec": "^4.12.2",
+    "express": "^4",
+    "hdb": "^2.27.1",
+    "passport": "^0.7.0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2",
+    "@sap/dev-cap-tools": "^1.31.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "start-local": "npm run generate-entry-point && npm run cds-watch",
+    "generate-entry-point": "dev-cap-tools gen-entrypoint",
+    "cds-watch": "cds watch --open",
+    "build": "cds build --production",
+    "watch-asset_master.asset_master": "cds watch --open asset_master.asset_master/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.purchaserequisition": "cds watch --open asset_master.purchaserequisition/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.purchaseorder": "cds watch --open asset_master.purchaseorder/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.goodsreceipt": "cds watch --open asset_master.goodsreceipt/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.invoice": "cds watch --open asset_master.invoice/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "[production]": {
+        "db": "hana"
+      },
+      "auth": {
+        "[development]": {
+          "kind": "dummy"
+        },
+        "[production]": {
+          "kind": "dummy"
+        }
+      }
+    }
+  },
+  "lcap": true,
+  "sapux": [
+    "app/asset_master.asset_master",
+    "app/asset_master.purchaserequisition",
+    "app/asset_master.purchaseorder",
+    "app/asset_master.goodsreceipt",
+    "app/asset_master.invoice"
+  ]
+}

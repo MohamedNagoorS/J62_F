@@ -1,0 +1,1 @@
+using asset_MasterSrv as service from '../../srv/service';
