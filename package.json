@@ -24,11 +24,11 @@
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
     "build": "cds build --production",
-    "watch-asset_master.asset_master": "cds watch --open asset_master.asset_master/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-asset_master.purchaserequisition": "cds watch --open asset_master.purchaserequisition/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-asset_master.purchaseorder": "cds watch --open asset_master.purchaseorder/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.assetmaster": "cds watch --open asset_master.assetmaster/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-asset_master.goodsreceipt": "cds watch --open asset_master.goodsreceipt/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-asset_master.invoice": "cds watch --open asset_master.invoice/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-asset_master.invoice": "cds watch --open asset_master.invoice/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.purchaseorder": "cds watch --open asset_master.purchaseorder/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-asset_master.purchaserequisition": "cds watch --open asset_master.purchaserequisition/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "private": true,
   "cds": {
@@ -48,10 +48,10 @@
   },
   "lcap": true,
   "sapux": [
-    "app/asset_master.asset_master",
-    "app/asset_master.purchaserequisition",
-    "app/asset_master.purchaseorder",
+    "app/asset_master.assetmaster",
     "app/asset_master.goodsreceipt",
-    "app/asset_master.invoice"
+    "app/asset_master.invoice",
+    "app/asset_master.purchaseorder",
+    "app/asset_master.purchaserequisition"
   ]
 }

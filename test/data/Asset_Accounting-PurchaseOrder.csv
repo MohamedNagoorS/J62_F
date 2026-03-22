@@ -1,6 +1,6 @@
-ID;purchaseOrderID;PurchaseOrderType;Supplier;OrderQuantity;NetPrice;refPurchaseRequisitionID
-66320f64-726d-4545-82fc-88cabe613174;4001;Standard;Tech Supplies Inc;10;1500.00;5001
-62d6042c-a28c-42f4-84b8-5715ce069894;4002;Standard;Office Goods Co;5;2000.00;5002
-c7a0ce93-63f5-4065-901e-afad6cfed6d2;4003;Standard;Furniture World;8;1200.00;5003
-f639eeb0-1c06-4582-aa78-eb28b9f929bf;4004;Standard;Networking Solutions;12;1800.00;5004
-e0d9d2a5-02a4-40e6-903b-c53c407740af;4005;Standard;Tech Supplies Inc;20;2500.00;5005
+ID;purchaseOrderID;PurchaseOrderType;Supplier;SupplierNumber;OrderQuantity;NetPrice;Currency;DeliveryDate;PurchaseOrg;PurchaseGroup;Status;refPurchaseRequisitionID;CreatedBy;ApprovedBy
+66320f64-726d-4545-82fc-88cabe613174;4001;NB;Tech Supplies Inc;10300001;5;1500.00;EUR;2021-06-15;1010;001;GR_POSTED;5001;Purchaser;Purchasing Manager
+62d6042c-a28c-42f4-84b8-5715ce069894;4002;NB;Office Goods Co;10300002;3;2000.00;EUR;2021-06-16;1010;001;GR_POSTED;5002;Purchaser;Purchasing Manager
+c7a0ce93-63f5-4065-901e-afad6cfed6d2;4003;NB;Furniture World;10300002;10;1200.00;EUR;2021-06-17;1010;001;CLOSED;5003;Purchaser;Purchasing Manager
+f639eeb0-1c06-4582-aa78-eb28b9f929bf;4004;NB;Networking Solutions;10300003;8;1800.00;EUR;2021-06-18;1010;001;CLOSED;5004;Purchaser;Purchasing Manager
+e0d9d2a5-02a4-40e6-903b-c53c407740af;4005;NB;Tech Supplies Inc;10300001;15;2500.00;EUR;2021-06-19;1010;001;APPROVED;5005;Purchaser;Purchasing Manager

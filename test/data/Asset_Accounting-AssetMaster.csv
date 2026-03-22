@@ -1,6 +1,6 @@
-ID;assetMasterID;AssetClass;Description;CompanyCode;CostCenter;CapitalizedOn
-66320f64-726d-4545-82fc-88cabe613174;1001;IT;Dell Laptop;C001;CC101;2021-06-01
-62d6042c-a28c-42f4-84b8-5715ce069894;1002;IT;HP Printer;C001;CC102;2021-06-02
-c7a0ce93-63f5-4065-901e-afad6cfed6d2;1003;Office;Office Desk;C002;CC201;2021-06-03
-f639eeb0-1c06-4582-aa78-eb28b9f929bf;1004;Office;Ergonomic Chair;C002;CC202;2021-06-04
-e0d9d2a5-02a4-40e6-903b-c53c407740af;1005;IT;Cisco Router;C001;CC101;2021-06-05
+ID;assetMasterID;AssetClass;AssetSubNumber;Description;CompanyCode;CostCenter;CapitalizedOn;UsefulLife;DepreciationKey;CreatedBy
+66320f64-726d-4545-82fc-88cabe613174;1001;IT;0;Dell Laptop;1010;CC101;2021-06-01;3;LINR;Asset Accountant
+62d6042c-a28c-42f4-84b8-5715ce069894;1002;IT;0;HP Printer;1010;CC102;2021-06-02;3;LINR;Asset Accountant
+c7a0ce93-63f5-4065-901e-afad6cfed6d2;1003;FURN;0;Office Desk;1010;CC201;2021-06-03;5;LINR;Asset Accountant
+f639eeb0-1c06-4582-aa78-eb28b9f929bf;1004;FURN;0;Ergonomic Chair;1010;CC202;2021-06-04;5;LINR;Asset Accountant
+e0d9d2a5-02a4-40e6-903b-c53c407740af;1005;IT;0;Cisco Router;1010;CC101;2021-06-05;3;LINR;Asset Accountant

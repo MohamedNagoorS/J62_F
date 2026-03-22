@@ -1,13 +1,13 @@
 {
   "generationParameters": {
-    "generationDate": "Tue Mar 17 2026 11:02:07 GMT+0000 (Coordinated Universal Time)",
+    "generationDate": "Wed Mar 18 2026 05:39:44 GMT+0000 (Coordinated Universal Time)",
     "generatorPlatform": "SAP Business Application Studio",
     "serviceType": "Local CAP",
     "metadataFilename": "",
     "serviceUrl": "http://localhost:4004/odata/v4/asset_accounting/",
     "appName": "asset_master.purchaserequisition",
-    "appTitle": "Purchase Requisition",
-    "appDescription": "My SAP application",
+    "appTitle": "purchaserequisition",
+    "appDescription": "Application For Purchase Requisition",
     "appNamespace": "",
     "ui5Theme": "sap_horizon",
     "ui5Version": "1.120.13",

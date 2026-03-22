@@ -1,0 +1,5 @@
+code;label
+INVOICE;Invoice
+CREDIT_MEMO;Credit Memo
+SUBSEQUENT_DEBIT;Subsequent Debit
+SUBSEQUENT_CREDIT;Subsequent Credit

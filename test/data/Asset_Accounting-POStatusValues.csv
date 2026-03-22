@@ -1,0 +1,6 @@
+code;label
+OPEN;Open
+PENDING;Pending Approval
+APPROVED;Approved
+GR_POSTED;Goods Receipt Posted
+CLOSED;Closed

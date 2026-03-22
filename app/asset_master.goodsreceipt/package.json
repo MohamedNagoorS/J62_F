@@ -1,7 +1,7 @@
 {
   "name": "asset_master.goodsreceipt",
   "version": "0.0.1",
-  "description": "My SAP application",
+  "description": "Application For Goods Receipt",
   "keywords": [
     "ui5",
     "openui5",

@@ -1,7 +1,7 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Mar 17 2026 11:34:13 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Wed Mar 18 2026 05:17:15 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
 |**App Generator Version**<br>1.21.0|
 |**Generation Platform**<br>SAP Business Application Studio|
@@ -9,7 +9,7 @@
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/odata/v4/asset_accounting/|
 |**Module Name**<br>asset_master.invoice|
-|**Application Title**<br>Invoice|
+|**Application Title**<br>invoice|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.120.13|
@@ -19,7 +19,7 @@
 
 ## asset_master.invoice
 
-My SAP application
+Application For Invoice
 
 ### Starting the generated app
 

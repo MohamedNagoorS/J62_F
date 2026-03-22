@@ -1,15 +1,15 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Mar 17 2026 05:17:24 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Wed Mar 18 2026 04:58:36 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
 |**App Generator Version**<br>1.21.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/odata/v4/asset_accounting/|
-|**Module Name**<br>asset_master.asset_master|
-|**Application Title**<br>Asset_Master|
+|**Module Name**<br>asset_master.assetmaster|
+|**Application Title**<br>Asset Master|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.120.13|
@@ -17,15 +17,15 @@
 |**Add Eslint configuration**<br>False|
 |**Main Entity**<br>AssetMaster|
 
-## asset_master.asset_master
+## asset_master.assetmaster
 
-My SAP application
+Asset Master
 
 ### Starting the generated app
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  To launch the generated app, start your CAP project:  and navigate to the following location in your browser:
 
-http://localhost:4004/asset_master.asset_master/webapp/index.html
+http://localhost:4004/asset_master.assetmaster/webapp/index.html
 
 #### Pre-requisites:
 

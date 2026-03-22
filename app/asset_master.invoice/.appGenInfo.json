@@ -1,13 +1,13 @@
 {
   "generationParameters": {
-    "generationDate": "Tue Mar 17 2026 11:34:13 GMT+0000 (Coordinated Universal Time)",
+    "generationDate": "Wed Mar 18 2026 05:17:15 GMT+0000 (Coordinated Universal Time)",
     "generatorPlatform": "SAP Business Application Studio",
     "serviceType": "Local CAP",
     "metadataFilename": "",
     "serviceUrl": "http://localhost:4004/odata/v4/asset_accounting/",
     "appName": "asset_master.invoice",
-    "appTitle": "Invoice",
-    "appDescription": "My SAP application",
+    "appTitle": "invoice",
+    "appDescription": "Application For Invoice",
     "appNamespace": "",
     "ui5Theme": "sap_horizon",
     "ui5Version": "1.120.13",

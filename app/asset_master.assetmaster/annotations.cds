@@ -27,6 +27,26 @@ annotate service.AssetMaster with @(
             $Type : 'UI.DataField',
             Value : CapitalizedOn,
         },
+        {
+            $Type : 'UI.DataField',
+            Value : AssetSubNumber,
+            Label : 'AssetSubNumber',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : CreatedBy,
+            Label : 'CreatedBy',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : DepreciationKey,
+            Label : 'DepreciationKey',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : UsefulLife,
+            Label : 'UsefulLife',
+        },
     ],
     UI.FieldGroup #Main : {
         $Type : 'UI.FieldGroupType',
@@ -54,6 +74,26 @@ annotate service.AssetMaster with @(
             {
                 $Type : 'UI.DataField',
                 Value : CapitalizedOn,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : AssetSubNumber,
+                Label : 'AssetSubNumber',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : CreatedBy,
+                Label : 'CreatedBy',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : DepreciationKey,
+                Label : 'DepreciationKey',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : UsefulLife,
+                Label : 'UsefulLife',
             },
         ],
     },

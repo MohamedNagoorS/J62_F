@@ -1,6 +1,6 @@
-ID;purchaseRequisitionID;AccountAssignmentCategory;ShortText;Quantity;UnitOfMeasure;MaterialGroup;Plant;ValuationPrice;refAssetMasterID
-66320f64-726d-4545-82fc-88cabe613174;5001;A;Request for Laptops;5;EA;IT01;PL01;300.00;1001
-62d6042c-a28c-42f4-84b8-5715ce069894;5002;B;Request for Printers;3;EA;IT02;PL01;400.00;1002
-c7a0ce93-63f5-4065-901e-afad6cfed6d2;5003;A;Request for Desks;10;EA;OF01;PL02;150.00;1003
-f639eeb0-1c06-4582-aa78-eb28b9f929bf;5004;B;Request for Chairs;8;EA;OF02;PL02;100.00;1004
-e0d9d2a5-02a4-40e6-903b-c53c407740af;5005;A;Request for Routers;15;EA;IT01;PL01;200.00;1005
+ID;purchaseRequisitionID;ShortText;AccountAssignmentCategory;Quantity;UnitOfMeasure;MaterialGroup;Plant;PurchaseGroup;PurchaseOrg;DesiredVendor;ValuationPrice;Status;refAssetMasterID;CreatedBy
+66320f64-726d-4545-82fc-88cabe613174;5001;Request for Laptops;A;5;EA;IT01;1010;001;1010;10300001;300.00;APPROVED;1001;Purchaser
+62d6042c-a28c-42f4-84b8-5715ce069894;5002;Request for Printers;A;3;EA;IT02;1010;001;1010;10300001;400.00;APPROVED;1002;Purchaser
+c7a0ce93-63f5-4065-901e-afad6cfed6d2;5003;Request for Desks;A;10;EA;OF01;1010;001;1010;10300002;150.00;CONVERTED;1003;Purchaser
+f639eeb0-1c06-4582-aa78-eb28b9f929bf;5004;Request for Chairs;A;8;EA;OF02;1010;001;1010;10300002;100.00;CONVERTED;1004;Purchaser
+e0d9d2a5-02a4-40e6-903b-c53c407740af;5005;Request for Routers;A;15;EA;IT01;1010;001;1010;10300001;200.00;APPROVED;1005;Purchaser

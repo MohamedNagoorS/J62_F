@@ -12,7 +12,7 @@ sap.ui.define([
 
             Then.onTheAssetMasterList.iSeeThisPage();
             Then.onTheAssetMasterList.onFilterBar().iCheckFilterField("ID");
-            Then.onTheAssetMasterList.onTable().iCheckColumns(7, {"assetMasterID":{"header":"ID"},"AssetClass":{"header":"Asset Class"},"Description":{"header":"Description"},"CompanyCode":{"header":"Company Code"},"CostCenter":{"header":"Cost Center"},"CapitalizedOn":{"header":"Capitalized On"},"refPurchaseRequisitionID":{"header":"Purchase Requisition ID"}});
+            Then.onTheAssetMasterList.onTable().iCheckColumns(7, {"assetMasterID":{"header":"ID"},"AssetClass":{"header":"Asset Class"},"Description":{"header":"Description"},"CompanyCode":{"header":"Company Code"},"CostCenter":{"header":"Cost Center"},"CapitalizedOn":{"header":"Capitalized On"},"refPurchaseRequisitionID":{"header":"refPurchaseRequisitionID"}});
 
         });
 
