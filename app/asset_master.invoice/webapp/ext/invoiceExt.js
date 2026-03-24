@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/m/MessageToast"
-], function(MessageToast) {
+    "sap/m/MessageToast",
+    "./images"
+], function(MessageToast, Images) {
     'use strict';
 
     return {
@@ -20,10 +21,17 @@ sap.ui.define([
             var oData = oContext.getObject();
 
             var doc = new window.jspdf.jsPDF();
-            // Header
+            
+            // Add Header Banner
+            if (Images && Images.header) {
+                doc.addImage(Images.header, 'JPEG', 0, 0, 210, 14);
+            }
+
+            // Header Text
             doc.setFontSize(22);
             doc.setTextColor(40, 40, 40);
-            doc.text("Supplier Invoice", 14, 22);
+            doc.text("Supplier Invoice", 14, 25);
+
 
             // Document Info Header Box
             doc.setFontSize(10);
@@ -97,6 +105,10 @@ sap.ui.define([
             doc.setFont(undefined, 'normal');
             doc.text((oData.TaxCode || "N/A").toString(), 145, 108);
 
+            // Add Footer Banner
+            if (Images && Images.header) {
+                doc.addImage(Images.header, 'JPEG', 0, 283, 210, 14);
+            }
 
             var sFileName = "Invoice_" + (oData.SupplierInvoiceNumber || oData.invoiceID || "Export") + ".pdf";
             doc.save(sFileName);
