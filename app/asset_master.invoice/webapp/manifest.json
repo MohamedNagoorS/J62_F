@@ -91,7 +91,11 @@
       }
     },
     "resources": {
-      "css": []
+      "css": [],
+      "js": [
+        { "uri": "lib/jspdf.umd.min.js" },
+        { "uri": "lib/jspdf.plugin.autotable.min.js" }
+      ]
     },
     "routing": {
       "config": {},
