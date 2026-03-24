@@ -59,6 +59,24 @@ service asset_MasterSrv
                     }
                 ]
             };
+        DepreciationKey
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'DepreciationKeyValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : DepreciationKey
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
     }
 
     annotate GoodsReceipt
@@ -119,6 +137,42 @@ service asset_MasterSrv
                     }
                 ]
             };
+        TransactionType
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'InvoiceTransactionValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : TransactionType
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
+        Currency
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'CurrencyValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : Currency
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
     }
 
     annotate PurchaseOrder
@@ -173,6 +227,60 @@ service asset_MasterSrv
                     {
                         $Type : 'Common.ValueListParameterDisplayOnly',
                         ValueListProperty : 'ShortText'
+                    }
+                ]
+            };
+        PurchaseGroup
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'PurchaseGroupValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : PurchaseGroup
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
+        PurchaseOrg
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'PurchaseOrgValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : PurchaseOrg
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
+        Currency
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'CurrencyValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : Currency
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
                     }
                 ]
             };
@@ -269,6 +377,42 @@ service asset_MasterSrv
                     }
                 ]
             };
+        PurchaseGroup
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'PurchaseGroupValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : PurchaseGroup
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
+        PurchaseOrg
+            @Common.ValueListWithFixedValues
+            @Common.ValueList : 
+            {
+                CollectionPath : 'PurchaseOrgValues',
+                Parameters :
+                [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        ValueListProperty : 'code',
+                        LocalDataProperty : PurchaseOrg
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty : 'label'
+                    }
+                ]
+            };
     }
 
     @odata.draft.enabled
@@ -330,4 +474,24 @@ service asset_MasterSrv
     @readonly
     entity TaxCodeValues as
         projection on my.TaxCodeValues;
+
+    @readonly
+    entity DepreciationKeyValues as
+        projection on my.DepreciationKeyValues;
+
+    @readonly
+    entity PurchaseGroupValues as
+        projection on my.PurchaseGroupValues;
+
+    @readonly
+    entity PurchaseOrgValues as
+        projection on my.PurchaseOrgValues;
+
+    @readonly
+    entity CurrencyValues as
+        projection on my.CurrencyValues;
+
+    @readonly
+    entity InvoiceTransactionValues as
+        projection on my.InvoiceTransactionValues;
 }
