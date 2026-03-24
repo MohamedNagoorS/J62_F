@@ -77,7 +77,7 @@ entity InvoiceTransactionValues {
 }
 @assert.unique: { assetMasterID: [assetMasterID] }
 entity AssetMaster : cuid {
-  assetMasterID   : Integer      @mandatory;
+  assetMasterID   : Integer      @readonly;
   AssetClass      : String(10);
   AssetSubNumber  : String(4);
   Description     : String(255)  @mandatory;
@@ -90,7 +90,7 @@ entity AssetMaster : cuid {
 }
 @assert.unique: { purchaseRequisitionID: [purchaseRequisitionID] }
 entity PurchaseRequisition : cuid {
-  purchaseRequisitionID     : Integer       @mandatory;
+  purchaseRequisitionID     : Integer       @readonly;
   ShortText                 : String(255)   @mandatory;
   AccountAssignmentCategory : String(1);
   Quantity                  : Integer;
@@ -107,7 +107,7 @@ entity PurchaseRequisition : cuid {
 }
 @assert.unique: { purchaseOrderID: [purchaseOrderID] }
 entity PurchaseOrder : cuid {
-  purchaseOrderID          : Integer       @mandatory;
+  purchaseOrderID          : Integer       @readonly;
   PurchaseOrderType        : String(20);
   Supplier                 : String(255)   @mandatory;
   SupplierNumber           : String(20);
@@ -124,7 +124,7 @@ entity PurchaseOrder : cuid {
 }
 @assert.unique: { invoiceID: [invoiceID] }
 entity Invoice : cuid {
-  invoiceID             : Integer       @mandatory;
+  invoiceID             : Integer       @readonly;
   TransactionType       : String(20);
   SupplierInvoiceNumber : String(255)   @mandatory;
   InvoiceDate           : Date;
@@ -139,7 +139,7 @@ entity Invoice : cuid {
 }
 @assert.unique: { goodsReceiptID: [goodsReceiptID] }
 entity GoodsReceipt : cuid {
-  goodsReceiptID     : Integer       @mandatory;
+  goodsReceiptID     : Integer       @readonly;
   MaterialDocument   : String(255);
   PostingDate        : Date          @mandatory;
   DocumentDate       : Date;
