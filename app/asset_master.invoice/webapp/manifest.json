@@ -127,6 +127,14 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
+                  },
+                  "actions": {
+                    "downloadInvoiceAction": {
+                      "id": "downloadInvoiceAction",
+                      "text": "Download Invoice",
+                      "press": "assetmaster.invoice.ext.invoiceExt.downloadInvoice",
+                      "requiresSelection": true
+                    }
                   }
                 }
               }
@@ -140,7 +148,18 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Invoice"
+              "contextPath": "/Invoice",
+              "content": {
+                "header": {
+                  "actions": {
+                    "downloadInvoiceAction": {
+                      "id": "downloadInvoiceAction",
+                      "text": "Download Invoice",
+                      "press": "assetmaster.invoice.ext.invoiceExt.downloadInvoice"
+                    }
+                  }
+                }
+              }
             }
           }
         }
