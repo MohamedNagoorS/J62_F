@@ -12,7 +12,8 @@
     {
       "source": "^/(.*)$",
       "target": "$1",
-      "localDir": "."
+      "localDir": ".",
+      "authenticationType": "xsuaa"
     }
   ]
 }
