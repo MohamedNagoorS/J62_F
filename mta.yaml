@@ -28,6 +28,18 @@ modules:
       - name: Asset_Master-xsuaa
       - name: Asset_Master-destination
 
+  - name: Asset_Master-approuter
+    type: approuter.nodejs
+    path: app
+    requires:
+      - name: Asset_Master-xsuaa
+      - name: srv-api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv-api
+          url: ~{srv-url}
+
   - name: Asset_Master-db-deployer
     type: hdb
     path: gen/db

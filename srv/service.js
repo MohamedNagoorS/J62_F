@@ -42,6 +42,11 @@ module.exports = cds.service.impl(async function () {
     });
     this.after('CREATE', 'PurchaseRequisition', async (data, req) => {
         try {
+            // Because Fiori draft activations sometimes only pass the ID to the hook, ensure we have full data:
+            const { PurchaseRequisition } = this.entities;
+            const fullData = await SELECT.one.from(PurchaseRequisition).where({ ID: data.ID });
+            if (!fullData) return; // safeguard
+
             const BPA_DESTINATION = 'bpa_destination';
             // In a real BTP deployment, this destination points to SAP Build Process Automation API
             const workflowService = await cds.connect.to(BPA_DESTINATION);
@@ -49,11 +54,11 @@ module.exports = cds.service.impl(async function () {
             const payload = {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
-                    "purchaseRequisitionID": data.purchaseRequisitionID,
-                    "ShortText": data.ShortText,
-                    "Quantity": data.Quantity,
-                    "ValuationPrice": data.ValuationPrice,
-                    "DesiredVendor": data.DesiredVendor
+                    "purchaseRequisitionID": fullData.purchaseRequisitionID,
+                    "ShortText": fullData.ShortText || "New PR",
+                    "Quantity": Number(fullData.Quantity) || 1,
+                    "ValuationPrice": Number(fullData.ValuationPrice) || 0,
+                    "DesiredVendor": fullData.DesiredVendor || "Unknown"
                 }
             };
 
