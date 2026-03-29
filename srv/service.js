@@ -42,7 +42,7 @@ module.exports = cds.service.impl(async function () {
     });
     this.after('CREATE', 'PurchaseRequisition', async (data, req) => {
         try {
-            const BPA_DESTINATION = 'us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow';
+            const BPA_DESTINATION = 'bpa_destination';
             // In a real BTP deployment, this destination points to SAP Build Process Automation API
             const workflowService = await cds.connect.to(BPA_DESTINATION);
 
