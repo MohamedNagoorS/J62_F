@@ -25,6 +25,8 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: Asset_Master-db
+      - name: Asset_Master-xsuaa
+      - name: Asset_Master-destination
 
   - name: Asset_Master-db-deployer
     type: hdb
@@ -40,3 +42,19 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+
+  - name: Asset_Master-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: Asset_Master-${org}-${space}
+        tenant-mode: dedicated
+
+  - name: Asset_Master-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

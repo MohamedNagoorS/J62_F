@@ -36,6 +36,13 @@
       "[production]": {
         "db": "hana"
       },
+      "bpa_destination": {
+        "kind": "rest",
+        "credentials": {
+          "destination": "bpa_destination",
+          "requestTimeout": 30000
+        }
+      },
       "auth": {
         "[development]": {
           "kind": "dummy"
