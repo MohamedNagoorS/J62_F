@@ -51,10 +51,6 @@ annotate service.GoodsReceipt with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : goodsReceiptID,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : MaterialDocument,
             },
             {

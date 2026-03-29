@@ -64,10 +64,6 @@ annotate service.PurchaseOrder with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : purchaseOrderID,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : PurchaseOrderType,
             },
             {

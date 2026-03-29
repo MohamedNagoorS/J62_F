@@ -59,10 +59,6 @@ annotate service.Invoice with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : invoiceID,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : SupplierInvoiceNumber,
             },
             {

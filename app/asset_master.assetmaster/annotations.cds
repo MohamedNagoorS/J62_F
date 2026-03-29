@@ -53,10 +53,6 @@ annotate service.AssetMaster with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : assetMasterID,
-            },
-            {
-                $Type : 'UI.DataField',
                 Value : AssetClass,
             },
             {
