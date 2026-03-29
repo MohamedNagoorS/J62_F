@@ -45,7 +45,7 @@ module.exports = cds.service.impl(async function () {
             // Because Fiori draft activations sometimes only pass the ID to the hook, ensure we have full data:
             const { PurchaseRequisition } = this.entities;
             const fullData = await SELECT.one.from(PurchaseRequisition).where({ ID: data.ID });
-            
+
             console.log("=== WORKFLOW TRIGGER DEBUG ===");
             console.log("Full DB Data Read: ", JSON.stringify(fullData));
             if (!fullData) return; // safeguard
@@ -58,16 +58,16 @@ module.exports = cds.service.impl(async function () {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
                     "purchaseRequisitionID": fullData.purchaseRequisitionID,
-                    
+
                     "ShortText": fullData.ShortText || "New PR",
                     "shortText": fullData.ShortText || "New PR",
-                    
+
                     "Quantity": Number(fullData.Quantity) || 1,
                     "quantity": Number(fullData.Quantity) || 1,
-                    
+
                     "ValuationPrice": Number(fullData.ValuationPrice) || 0,
                     "valuationPrice": Number(fullData.ValuationPrice) || 0,
-                    
+
                     "DesiredVendor": fullData.DesiredVendor || "Unknown",
                     "desiredVendor": fullData.DesiredVendor || "Unknown"
                 }
