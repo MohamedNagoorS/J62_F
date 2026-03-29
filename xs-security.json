@@ -5,7 +5,7 @@
   "authorities-inheritance": false,
   "oauth2-configuration": {
     "redirect-uris": [
-      "https://*.cfapps.*.hana.ondemand.com/**"
+      "https://a777775ftrial-dev-asset-master-approuter.cfapps.us10-001.hana.ondemand.com/login/callback"
     ]
   }
 }
