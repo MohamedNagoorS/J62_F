@@ -3,6 +3,9 @@ using { Asset_Accounting as my } from '../db/schema.cds';
 @path : 'asset_accounting'
 service asset_MasterSrv
 {
+    action approve(purchaseRequisitionID: Integer);
+    action reject(purchaseRequisitionID: Integer);
+
     annotate AssetMaster
     {
         AssetClass

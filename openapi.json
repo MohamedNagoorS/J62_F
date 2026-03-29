@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Asset Master CAP Service",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "/odata/v4/asset-accounting"
+    }
+  ],
+  "paths": {
+    "/approve": {
+      "post": {
+        "summary": "Approve PR",
+        "operationId": "approvePR",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "purchaseRequisitionID": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully approved"
+          }
+        }
+      }
+    },
+    "/reject": {
+      "post": {
+        "summary": "Reject PR",
+        "operationId": "rejectPR",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "purchaseRequisitionID": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully rejected"
+          }
+        }
+      }
+    }
+  }
+}
