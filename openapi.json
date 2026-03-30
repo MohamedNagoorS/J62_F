@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "/odata/v4/asset-accounting"
+      "url": "/odata/v4/asset_accounting"
     }
   ],
   "paths": {
