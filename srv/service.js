@@ -40,6 +40,7 @@ module.exports = cds.service.impl(async function () {
             req.data.invoiceID = result && result.invoiceID ? result.invoiceID + 1 : 500001;
         }
     });
+
     this.after('CREATE', 'PurchaseRequisition', async (data, req) => {
         try {
             // Because Fiori draft activations sometimes only pass the ID to the hook, ensure we have full data:
@@ -48,7 +49,10 @@ module.exports = cds.service.impl(async function () {
 
             console.log("=== WORKFLOW TRIGGER DEBUG ===");
             console.log("Full DB Data Read: ", JSON.stringify(fullData));
-            if (!fullData) return; // safeguard
+            if (!fullData) {
+                console.error("CRITICAL: No database record found for PR ID:", data.ID);
+                return;
+            }
 
             const BPA_DESTINATION = 'bpa_destination';
             // In a real BTP deployment, this destination points to SAP Build Process Automation API
@@ -58,36 +62,27 @@ module.exports = cds.service.impl(async function () {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
                     // Exhaustive casing Variations for BPA Mapping
-                    "purchaseRequisitionID": fullData.purchaseRequisitionID,
-                    "purchase_requisition_id": fullData.purchaseRequisitionID,
-                    "purchaserequisitionid": fullData.purchaseRequisitionID,
-                    "id": fullData.purchaseRequisitionID,
-                    "pr_id": fullData.purchaseRequisitionID,
+                    "purchaseRequisitionID": fullData.purchaseRequisitionID || 0,
+                    "purchase_requisition_id": fullData.purchaseRequisitionID || 0,
+                    "pr_id": fullData.purchaseRequisitionID || 0,
 
-                    "ShortText": fullData.ShortText || "New PR",
-                    "shortText": fullData.ShortText || "New PR",
-                    "short_text": fullData.ShortText || "New PR",
-                    "description": fullData.ShortText || "New PR",
-                    "Description": fullData.ShortText || "New PR",
+                    "ShortText": fullData.ShortText || "PR Description Missing",
+                    "shortText": fullData.ShortText || "PR Description Missing",
+                    "description": fullData.ShortText || "PR Description Missing",
 
                     "Quantity": Number(fullData.Quantity) || 1,
                     "quantity": Number(fullData.Quantity) || 1,
 
-                    "ValuationPrice": Number(fullData.ValuationPrice) || 0,
-                    "valuationPrice": Number(fullData.ValuationPrice) || 0,
-                    "valuation_price": Number(fullData.ValuationPrice) || 0,
-                    "price": Number(fullData.ValuationPrice) || 0,
-                    "Price": Number(fullData.ValuationPrice) || 0,
+                    "ValuationPrice": Number(fullData.ValuationPrice) || 0.0,
+                    "valuationPrice": Number(fullData.ValuationPrice) || 0.0,
+                    "price": Number(fullData.ValuationPrice) || 0.0,
 
-                    "DesiredVendor": fullData.DesiredVendor || "Unknown",
-                    "desiredVendor": fullData.DesiredVendor || "Unknown",
-                    "desired_vendor": fullData.DesiredVendor || "Unknown",
-                    "vendor": fullData.DesiredVendor || "Unknown",
-                    "Vendor": fullData.DesiredVendor || "Unknown"
+                    "DesiredVendor": fullData.DesiredVendor || "No Vendor Specified",
+                    "desiredVendor": fullData.DesiredVendor || "No Vendor Specified",
+                    "vendor": fullData.DesiredVendor || "No Vendor Specified"
                 }
             };
-            console.log("TRIGGERING BPA WITH PAYLOAD: ", JSON.stringify(payload));
-            console.log("SENDING PAYLOAD: ", JSON.stringify(payload));
+            console.log("FINAL PAYLOAD TO BPA: ", JSON.stringify(payload));
 
             // Example endpoint for SAP BPA Workflow start
             await workflowService.send('POST', '/workflow/rest/v1/workflow-instances', payload);
@@ -119,8 +114,21 @@ module.exports = cds.service.impl(async function () {
         // 2. Update PR Status to APPROVED
         await UPDATE(PurchaseRequisition).set({ Status: 'APPROVED' }).where({ purchaseRequisitionID });
 
-        // 3. Create PO
+        // 3. Manually calculate the next PO ID
+        const result = await SELECT.one.from(PurchaseOrder).columns('purchaseOrderID').orderBy({ purchaseOrderID: 'desc' });
+        // Using parseInt ensures string concats (like "300001" + 1 = "3000011") don't happen
+        const nextPOId = result && result.purchaseOrderID ? parseInt(result.purchaseOrderID, 10) + 1 : 300001;
+
+        // 4. Generate a Delivery Date (e.g., 7 days from today)
+        const today = new Date();
+        today.setDate(today.getDate() + 7);
+        const deliveryDateStr = today.toISOString().split('T')[0]; // Formats to YYYY-MM-DD
+
+        // 5. Create PO
         const newPO = {
+            ID: cds.utils.uuid(),              // <--- CRITICAL FIX: Generates the hidden UUID required by Fiori
+            purchaseOrderID: nextPOId,
+            DeliveryDate: deliveryDateStr,     // NOTE: Check your schema.cds! If it is lowercase 'deliveryDate', change this.
             PurchaseOrderType: 'NB',
             Supplier: pr.DesiredVendor || 'Unknown Vendor',
             SupplierNumber: '1000',
@@ -134,6 +142,9 @@ module.exports = cds.service.impl(async function () {
             CreatedBy: 'Workflow',
             ApprovedBy: 'Manager'
         };
+
+        console.log("=== EXECUTING DB INSERT FOR PO ===");
+        console.log("Payload:", JSON.stringify(newPO));
 
         await INSERT.into(PurchaseOrder).entries(newPO);
         console.log("SUCCESS: Purchase Order created automatically.");
