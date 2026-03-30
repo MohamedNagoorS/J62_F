@@ -57,10 +57,15 @@ module.exports = cds.service.impl(async function () {
             const payload = {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
+                    // Send multiple naming variations to ensure BPA finds the right one
                     "purchaseRequisitionID": fullData.purchaseRequisitionID,
+                    "purchase_requisition_id": fullData.purchaseRequisitionID,
+                    "purchaserequisitionid": fullData.purchaseRequisitionID,
+                    "pr_id": fullData.purchaseRequisitionID,
 
                     "ShortText": fullData.ShortText || "New PR",
                     "shortText": fullData.ShortText || "New PR",
+                    "description": fullData.ShortText || "New PR",
 
                     "Quantity": Number(fullData.Quantity) || 1,
                     "quantity": Number(fullData.Quantity) || 1,
@@ -83,12 +88,23 @@ module.exports = cds.service.impl(async function () {
     });
 
     this.on('approve', async (req) => {
-        const { purchaseRequisitionID } = req.data;
+        // Robust ID extraction: Check for multiple naming possibilities from BPA
+        const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
+        
+        console.log("=== BPA CALLBACK: APPROVE ACTION RECEIVED ===");
+        console.log("RAW REQ DATA: ", JSON.stringify(req.data));
+        console.log("Resolved PR ID:", purchaseRequisitionID);
+
         const { PurchaseRequisition, PurchaseOrder } = this.entities;
 
         // 1. Get PR Details
         const pr = await SELECT.one.from(PurchaseRequisition).where({ purchaseRequisitionID });
-        if (!pr) return req.error(404, `Purchase Requisition ${purchaseRequisitionID} not found`);
+        console.log("DB Record Found:", JSON.stringify(pr));
+
+        if (!pr) {
+            console.error(`ERROR: PR ${purchaseRequisitionID} could not be found in DB.`);
+            return req.error(404, `Purchase Requisition ${purchaseRequisitionID} not found`);
+        }
 
         // 2. Update PR Status to APPROVED
         await UPDATE(PurchaseRequisition).set({ Status: 'APPROVED' }).where({ purchaseRequisitionID });
@@ -110,15 +126,22 @@ module.exports = cds.service.impl(async function () {
         };
 
         await INSERT.into(PurchaseOrder).entries(newPO);
+        console.log("SUCCESS: Purchase Order created automatically.");
         return req.reply({ message: `PR ${purchaseRequisitionID} approved and PO created.` });
     });
 
     this.on('reject', async (req) => {
-        const { purchaseRequisitionID } = req.data;
+        const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
+        console.log("=== BPA CALLBACK: REJECT ACTION RECEIVED ===");
+        console.log("Resolved PR ID:", purchaseRequisitionID);
+
         const { PurchaseRequisition } = this.entities;
 
         const pr = await SELECT.one.from(PurchaseRequisition).where({ purchaseRequisitionID });
-        if (!pr) return req.error(404, `Purchase Requisition ${purchaseRequisitionID} not found`);
+        if (!pr) {
+            console.error(`ERROR: PR ${purchaseRequisitionID} not found for rejection.`);
+            return req.error(404, `Purchase Requisition ${purchaseRequisitionID} not found`);
+        }
 
         await UPDATE(PurchaseRequisition).set({ Status: 'REJECTED' }).where({ purchaseRequisitionID });
         return req.reply({ message: `PR ${purchaseRequisitionID} rejected.` });

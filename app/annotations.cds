@@ -57,8 +57,12 @@ annotate asset_MasterSrv.PurchaseRequisition with {
   UnitOfMeasure @title: 'Unit Of Measure';
   MaterialGroup @title: 'Material Group';
   Plant @title: 'Plant';
+  PurchaseOrg @title: 'Purchase Organization';
+  PurchaseGroup @title: 'Purchase Group';
+  DesiredVendor @title: 'Desired Vendor';
   ValuationPrice @title: 'Valuation Price';
-  refPurchaseOrderID @title: 'Purchase Order ID'
+  refAssetMasterID @title: 'Asset Master ID';
+  Status @title: 'Status';
 };
 
 annotate asset_MasterSrv.PurchaseRequisition with @UI.LineItem: [
@@ -67,10 +71,14 @@ annotate asset_MasterSrv.PurchaseRequisition with @UI.LineItem: [
  { $Type: 'UI.DataField', Value: ShortText },
  { $Type: 'UI.DataField', Value: Quantity },
  { $Type: 'UI.DataField', Value: UnitOfMeasure },
- { $Type: 'UI.DataField', Value: MaterialGroup },
- { $Type: 'UI.DataField', Value: Plant },
- { $Type: 'UI.DataField', Value: ValuationPrice },
- { $Type: 'UI.DataField', Value: refPurchaseOrderID }
+  { $Type: 'UI.DataField', Value: MaterialGroup },
+  { $Type: 'UI.DataField', Value: Plant },
+  { $Type: 'UI.DataField', Value: PurchaseOrg },
+  { $Type: 'UI.DataField', Value: PurchaseGroup },
+  { $Type: 'UI.DataField', Value: DesiredVendor },
+  { $Type: 'UI.DataField', Value: ValuationPrice },
+  { $Type: 'UI.DataField', Value: refAssetMasterID },
+  { $Type: 'UI.DataField', Value: Status }
 ];
 
 annotate asset_MasterSrv.PurchaseRequisition with @UI.FieldGroup #Main: {
@@ -80,10 +88,14 @@ annotate asset_MasterSrv.PurchaseRequisition with @UI.FieldGroup #Main: {
  { $Type: 'UI.DataField', Value: ShortText },
  { $Type: 'UI.DataField', Value: Quantity },
  { $Type: 'UI.DataField', Value: UnitOfMeasure },
- { $Type: 'UI.DataField', Value: MaterialGroup },
- { $Type: 'UI.DataField', Value: Plant },
- { $Type: 'UI.DataField', Value: ValuationPrice },
- { $Type: 'UI.DataField', Value: refPurchaseOrderID }
+  { $Type: 'UI.DataField', Value: MaterialGroup },
+  { $Type: 'UI.DataField', Value: Plant },
+  { $Type: 'UI.DataField', Value: PurchaseOrg },
+  { $Type: 'UI.DataField', Value: PurchaseGroup },
+  { $Type: 'UI.DataField', Value: DesiredVendor },
+  { $Type: 'UI.DataField', Value: ValuationPrice },
+  { $Type: 'UI.DataField', Value: refAssetMasterID },
+  { $Type: 'UI.DataField', Value: Status }
   ]
 };
 
