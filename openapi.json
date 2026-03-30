@@ -2,15 +2,10 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Asset Master CAP Service",
-    "version": "1.0"
+    "version": "1.2"
   },
-  "servers": [
-    {
-      "url": "/odata/v4/asset_accounting"
-    }
-  ],
   "paths": {
-    "/approve": {
+    "/odata/v4/asset_accounting/approvePR": {
       "post": {
         "summary": "Approve PR",
         "operationId": "approvePR",
@@ -35,7 +30,7 @@
         }
       }
     },
-    "/reject": {
+    "/odata/v4/asset_accounting/rejectPR": {
       "post": {
         "summary": "Reject PR",
         "operationId": "rejectPR",

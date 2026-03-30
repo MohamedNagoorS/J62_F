@@ -97,10 +97,10 @@ module.exports = cds.service.impl(async function () {
         }
     });
 
-    this.on('approve', async (req) => {
+    this.on('approvePR', async (req) => {
         // Robust ID extraction: Check for multiple naming possibilities from BPA
         const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
-        
+
         console.log("=== BPA CALLBACK: APPROVE ACTION RECEIVED ===");
         console.log("RAW REQ DATA: ", JSON.stringify(req.data));
         console.log("Resolved PR ID:", purchaseRequisitionID);
@@ -140,7 +140,7 @@ module.exports = cds.service.impl(async function () {
         return req.reply({ message: `PR ${purchaseRequisitionID} approved and PO created.` });
     });
 
-    this.on('reject', async (req) => {
+    this.on('rejectPR', async (req) => {
         const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
         console.log("=== BPA CALLBACK: REJECT ACTION RECEIVED ===");
         console.log("Resolved PR ID:", purchaseRequisitionID);

@@ -3,8 +3,8 @@ using { Asset_Accounting as my } from '../db/schema.cds';
 @path : 'asset_accounting'
 service asset_MasterSrv
 {
-    action approve(purchaseRequisitionID: Integer);
-    action reject(purchaseRequisitionID: Integer);
+    action approvePR(purchaseRequisitionID: Integer);
+    action rejectPR(purchaseRequisitionID: Integer);
 
     annotate AssetMaster
     {
