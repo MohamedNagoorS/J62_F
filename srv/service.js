@@ -93,42 +93,38 @@ module.exports = cds.service.impl(async function () {
     });
 
     this.on('approvePR', async (req) => {
-        // Robust ID extraction: Check for multiple naming possibilities from BPA
         const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
 
         console.log("=== BPA CALLBACK: APPROVE ACTION RECEIVED ===");
-        console.log("RAW REQ DATA: ", JSON.stringify(req.data));
         console.log("Resolved PR ID:", purchaseRequisitionID);
 
         const { PurchaseRequisition, PurchaseOrder } = this.entities;
 
         // 1. Get PR Details
         const pr = await SELECT.one.from(PurchaseRequisition).where({ purchaseRequisitionID });
-        console.log("DB Record Found:", JSON.stringify(pr));
-
-        if (!pr) {
-            console.error(`ERROR: PR ${purchaseRequisitionID} could not be found in DB.`);
-            return req.error(404, `Purchase Requisition ${purchaseRequisitionID} not found`);
-        }
+        if (!pr) return req.error(404, `Purchase Requisition ${purchaseRequisitionID} not found`);
 
         // 2. Update PR Status to APPROVED
         await UPDATE(PurchaseRequisition).set({ Status: 'APPROVED' }).where({ purchaseRequisitionID });
 
-        // 3. Manually calculate the next PO ID
+        // 3. Safely calculate the next PO ID (As an Integer)
         const result = await SELECT.one.from(PurchaseOrder).columns('purchaseOrderID').orderBy({ purchaseOrderID: 'desc' });
-        // Using parseInt ensures string concats (like "300001" + 1 = "3000011") don't happen
-        const nextPOId = result && result.purchaseOrderID ? parseInt(result.purchaseOrderID, 10) + 1 : 300001;
+        let nextPOId = 300001;
+        if (result && result.purchaseOrderID) {
+            nextPOId = parseInt(result.purchaseOrderID, 10) + 1; // Keeping it as a strict Integer
+        }
 
-        // 4. Generate a Delivery Date (e.g., 7 days from today)
+        // 4. Generate a Delivery Date (7 days from today)
         const today = new Date();
         today.setDate(today.getDate() + 7);
         const deliveryDateStr = today.toISOString().split('T')[0]; // Formats to YYYY-MM-DD
 
         // 5. Create PO
         const newPO = {
-            ID: cds.utils.uuid(),              // <--- CRITICAL FIX: Generates the hidden UUID required by Fiori
-            purchaseOrderID: nextPOId,
-            DeliveryDate: deliveryDateStr,     // NOTE: Check your schema.cds! If it is lowercase 'deliveryDate', change this.
+            ID: cds.utils.uuid(),
+            IsActiveEntity: true,               // Required for Fiori Drafts
+            purchaseOrderID: nextPOId,          // <--- FIXED: Passed as raw Integer
+            DeliveryDate: deliveryDateStr,      // <--- Capital D, matching schema.cds
             PurchaseOrderType: 'NB',
             Supplier: pr.DesiredVendor || 'Unknown Vendor',
             SupplierNumber: '1000',
@@ -138,7 +134,7 @@ module.exports = cds.service.impl(async function () {
             PurchaseOrg: pr.PurchaseOrg,
             PurchaseGroup: pr.PurchaseGroup,
             Status: 'OPEN',
-            refPurchaseRequisitionID: purchaseRequisitionID,
+            refPurchaseRequisitionID: parseInt(purchaseRequisitionID, 10), // <--- FIXED: Passed as raw Integer
             CreatedBy: 'Workflow',
             ApprovedBy: 'Manager'
         };
@@ -147,7 +143,7 @@ module.exports = cds.service.impl(async function () {
         console.log("Payload:", JSON.stringify(newPO));
 
         await INSERT.into(PurchaseOrder).entries(newPO);
-        console.log("SUCCESS: Purchase Order created automatically.");
+        console.log(`SUCCESS: PO ${nextPOId} created automatically.`);
         return req.reply({ message: `PR ${purchaseRequisitionID} approved and PO created.` });
     });
 
