@@ -93,11 +93,21 @@ module.exports = cds.service.impl(async function () {
     });
 
     this.on('approvePR', async (req) => {
-        const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
+
 
         console.log("=== BPA CALLBACK: APPROVE ACTION RECEIVED ===");
+
+        // THIS IS THE MAGIC LINE: It prints the exact, raw JSON sent by SAP Build
+        console.log("RAW PAYLOAD FROM BPA: ", JSON.stringify(req.data));
+
+        const purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
         console.log("Resolved PR ID:", purchaseRequisitionID);
 
+        // Stop the code safely if the ID is missing, rather than crashing the DB
+        if (!purchaseRequisitionID) {
+            console.error("CRITICAL: BPA did not send a valid ID!");
+            return req.error(400, "Missing PR ID from Workflow.");
+        }
         const { PurchaseRequisition, PurchaseOrder } = this.entities;
 
         // 1. Get PR Details
