@@ -107,11 +107,15 @@ module.exports = cds.service.impl(async function () {
         // 2. Update PR Status to APPROVED
         await UPDATE(PurchaseRequisition).set({ Status: 'APPROVED' }).where({ purchaseRequisitionID });
 
-        // 3. Safely calculate the next PO ID (As an Integer)
-        const result = await SELECT.one.from(PurchaseOrder).columns('purchaseOrderID').orderBy({ purchaseOrderID: 'desc' });
+        // 3. Manually calculate the next PO ID (Because INSERT.into bypasses before hooks)
         let nextPOId = 300001;
+        const result = await SELECT.one.from(PurchaseOrder)
+            .columns('purchaseOrderID')
+            .where('purchaseOrderID IS NOT NULL')
+            .orderBy({ purchaseOrderID: 'desc' });
+
         if (result && result.purchaseOrderID) {
-            nextPOId = parseInt(result.purchaseOrderID, 10) + 1; // Keeping it as a strict Integer
+            nextPOId = parseInt(result.purchaseOrderID, 10) + 1;
         }
 
         // 4. Generate a Delivery Date (7 days from today)
@@ -121,10 +125,10 @@ module.exports = cds.service.impl(async function () {
 
         // 5. Create PO
         const newPO = {
-            ID: cds.utils.uuid(),
-            IsActiveEntity: true,               // Required for Fiori Drafts
-            purchaseOrderID: nextPOId,          // <--- FIXED: Passed as raw Integer
-            DeliveryDate: deliveryDateStr,      // <--- Capital D, matching schema.cds
+            ID: cds.utils.uuid(),               // Required: Hidden UUID for Fiori Drafts
+            IsActiveEntity: true,               // Required: Tells Fiori this is not a draft
+            purchaseOrderID: nextPOId,          // Required: The calculated running Integer
+            DeliveryDate: deliveryDateStr,
             PurchaseOrderType: 'NB',
             Supplier: pr.DesiredVendor || 'Unknown Vendor',
             SupplierNumber: '1000',
@@ -134,7 +138,7 @@ module.exports = cds.service.impl(async function () {
             PurchaseOrg: pr.PurchaseOrg,
             PurchaseGroup: pr.PurchaseGroup,
             Status: 'OPEN',
-            refPurchaseRequisitionID: parseInt(purchaseRequisitionID, 10), // <--- FIXED: Passed as raw Integer
+            refPurchaseRequisitionID: parseInt(purchaseRequisitionID, 10),
             CreatedBy: 'Workflow',
             ApprovedBy: 'Manager'
         };
