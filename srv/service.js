@@ -57,26 +57,36 @@ module.exports = cds.service.impl(async function () {
             const payload = {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
-                    // Send multiple naming variations to ensure BPA finds the right one
+                    // Exhaustive casing Variations for BPA Mapping
                     "purchaseRequisitionID": fullData.purchaseRequisitionID,
                     "purchase_requisition_id": fullData.purchaseRequisitionID,
                     "purchaserequisitionid": fullData.purchaseRequisitionID,
+                    "id": fullData.purchaseRequisitionID,
                     "pr_id": fullData.purchaseRequisitionID,
 
                     "ShortText": fullData.ShortText || "New PR",
                     "shortText": fullData.ShortText || "New PR",
+                    "short_text": fullData.ShortText || "New PR",
                     "description": fullData.ShortText || "New PR",
+                    "Description": fullData.ShortText || "New PR",
 
                     "Quantity": Number(fullData.Quantity) || 1,
                     "quantity": Number(fullData.Quantity) || 1,
 
                     "ValuationPrice": Number(fullData.ValuationPrice) || 0,
                     "valuationPrice": Number(fullData.ValuationPrice) || 0,
+                    "valuation_price": Number(fullData.ValuationPrice) || 0,
+                    "price": Number(fullData.ValuationPrice) || 0,
+                    "Price": Number(fullData.ValuationPrice) || 0,
 
                     "DesiredVendor": fullData.DesiredVendor || "Unknown",
-                    "desiredVendor": fullData.DesiredVendor || "Unknown"
+                    "desiredVendor": fullData.DesiredVendor || "Unknown",
+                    "desired_vendor": fullData.DesiredVendor || "Unknown",
+                    "vendor": fullData.DesiredVendor || "Unknown",
+                    "Vendor": fullData.DesiredVendor || "Unknown"
                 }
             };
+            console.log("TRIGGERING BPA WITH PAYLOAD: ", JSON.stringify(payload));
             console.log("SENDING PAYLOAD: ", JSON.stringify(payload));
 
             // Example endpoint for SAP BPA Workflow start
