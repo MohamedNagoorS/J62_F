@@ -57,11 +57,11 @@ module.exports = cds.service.impl(async function () {
             const payload = {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
-                    "purchaseRequisitionID": fullData.purchaseRequisitionID,
-                    "ShortText": fullData.ShortText,
-                    "Quantity": Number(fullData.Quantity),
-                    "ValuationPrice": Number(fullData.ValuationPrice),
-                    "DesiredVendor": fullData.DesiredVendor
+                    "purchaserequisitionid": fullData.purchaseRequisitionID || 0,
+                    "shorttext": fullData.ShortText || "New PR",
+                    "quantity": Number(fullData.Quantity) || 1,
+                    "valuationprice": Number(fullData.ValuationPrice) || 0,
+                    "desiredvendor": fullData.DesiredVendor || "Unknown",
                 }
             };
 
