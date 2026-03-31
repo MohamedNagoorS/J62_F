@@ -48,39 +48,24 @@ module.exports = cds.service.impl(async function () {
 
             console.log("=== WORKFLOW TRIGGER DEBUG ===");
             console.log("Full DB Data Read: ", JSON.stringify(fullData));
-            if (!fullData) return; 
+            if (!fullData) return;
 
             const BPA_DESTINATION = 'bpa_destination';
             const workflowService = await cds.connect.to(BPA_DESTINATION);
 
+            // SURGICAL PAYLOAD: Must perfectly match the SAP Build Trigger Outputs
             const payload = {
                 "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
                 "context": {
-                    "purchaseRequisitionID": fullData.purchaseRequisitionID || 0,
-                    "purchase_requisition_id": fullData.purchaseRequisitionID || 0,
-                    "purchaserequisitionid": fullData.purchaseRequisitionID || 0,
-                    "id": fullData.purchaseRequisitionID || 0,
-                    "pr_id": fullData.purchaseRequisitionID || 0,
-                    "ShortText": fullData.ShortText || "New PR",
-                    "shortText": fullData.ShortText || "New PR",
-                    "short_text": fullData.ShortText || "New PR",
-                    "description": fullData.ShortText || "New PR",
-                    "Description": fullData.ShortText || "New PR",
-                    "Quantity": Number(fullData.Quantity) || 1,
-                    "quantity": Number(fullData.Quantity) || 1,
-                    "ValuationPrice": Number(fullData.ValuationPrice) || 0,
-                    "valuationPrice": Number(fullData.ValuationPrice) || 0,
-                    "valuation_price": Number(fullData.ValuationPrice) || 0,
-                    "price": Number(fullData.ValuationPrice) || 0,
-                    "Price": Number(fullData.ValuationPrice) || 0,
-                    "DesiredVendor": fullData.DesiredVendor || "Unknown",
-                    "desiredVendor": fullData.DesiredVendor || "Unknown",
-                    "desired_vendor": fullData.DesiredVendor || "Unknown",
-                    "vendor": fullData.DesiredVendor || "Unknown",
-                    "Vendor": fullData.DesiredVendor || "Unknown"
+                    "purchaseRequisitionID": fullData.purchaseRequisitionID,
+                    "ShortText": fullData.ShortText,
+                    "Quantity": Number(fullData.Quantity),
+                    "ValuationPrice": Number(fullData.ValuationPrice),
+                    "DesiredVendor": fullData.DesiredVendor
                 }
             };
-            console.log("TRIGGERING BPA WITH PAYLOAD: ", JSON.stringify(payload));
+
+            console.log("TRIGGERING BPA WITH STRICT PAYLOAD: ", JSON.stringify(payload));
 
             await workflowService.send('POST', '/workflow/rest/v1/workflow-instances', payload);
             console.log(`Workflow triggered for PR: ${data.purchaseRequisitionID}`);
@@ -97,7 +82,7 @@ module.exports = cds.service.impl(async function () {
 
         // --- THE FAIL-SAFE LOGIC ---
         let purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
-        
+
         if (!purchaseRequisitionID) {
             console.log("WARNING: BPA payload was empty! Using fallback PR ID to force PO creation.");
             const latestPR = await SELECT.one.from(PurchaseRequisition).orderBy({ purchaseRequisitionID: 'desc' });
@@ -163,7 +148,7 @@ module.exports = cds.service.impl(async function () {
     this.on('rejectPR', async (req) => {
         let purchaseRequisitionID = req.data.purchaseRequisitionID || req.data.purchaserequisitionid || req.data.pr_id;
         console.log("=== BPA CALLBACK: REJECT ACTION RECEIVED ===");
-        
+
         const { PurchaseRequisition } = this.entities;
 
         if (!purchaseRequisitionID) {
