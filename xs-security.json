@@ -1,3 +1,4 @@
+
 {
   "scopes": [],
   "attributes": [],
@@ -5,7 +6,8 @@
   "authorities-inheritance": false,
   "oauth2-configuration": {
     "redirect-uris": [
-      "https://a777775ftrial-dev-asset-master-approuter.cfapps.us10-001.hana.ondemand.com/login/callback"
+      "https://*.cfapps.us10-001.hana.ondemand.com/**",
+      "https://*.applicationstudio.cloud.sap/**"
     ]
   }
 }

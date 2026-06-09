@@ -55,7 +55,8 @@ module.exports = cds.service.impl(async function () {
 
             // SURGICAL PAYLOAD: Must perfectly match the SAP Build Trigger Outputs
             const payload = {
-                "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
+                // "definitionId": "us10.a777775ftrial.prapprovalworkflow.PR_Approval_Workflow",
+                "definitionId": "us10.6d138d8atrial.prworkflow.process",
                 "context": {
                     "purchaserequisitionid": fullData.purchaseRequisitionID || 0,
                     "shorttext": fullData.ShortText || "New PR",
